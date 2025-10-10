@@ -56,7 +56,10 @@ EOF
 After connecting, in the ssh terminal perform the following steps to startup the service for your oslogin user:
 ```shell
 sudo systemctl enable jupyter@$(systemd-escape <your-linux-username>)
+
 sudo systemctl start jupyter@$(systemd-escape <your-linux-username>)
+
+sudo systemctl status jupyter@*
 ```
 
 **Now, on localhost:8080 you should be able to perform the following in a JPL terminal:**
