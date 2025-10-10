@@ -71,5 +71,5 @@ export HUGGINGFACE_TOKEN='${HUGGINGFACE_TOKEN}'
 ```shell
 git clone https://$GIT_USERNAME:$GIT_TOKEN@github.com/bradlet/ai-research.git
 ```
-3. In a notebook cell, you can run `%pip install -r -requirements.txt` to get access to any required Python modules in the current session.
+3. In a notebook cell, you can run `%pip install -r requirements.txt` to get access to any required Python modules in the current session.
 
