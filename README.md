@@ -11,14 +11,65 @@ If interacting with this on a VM, users will likely need access to their Hugging
 ```shell
 gcloud compute ssh --project playground-dev-6ae7 --zone us-central1-a ai-dev-vm -- -L 8080:localhost:8080
 ```
-2. Expose your tokens on the session
+2. The VM I actually use has a template systemd service setup via this startup script:
+```
+#!/bin/bash
+set -euxo pipefail
+LOGFILE="/var/log/jupyter-startup.log"
+exec > >(tee -a $${LOGFILE} ) 2>&1
+
+# Basic packages
+apt-get update
+apt-get install -y python3-venv python3-pip
+
+# Create a shared virtualenv accessible by OS Login users
+VENV_DIR="/opt/jupyterlab-venv"
+python3 -m venv "$${VENV_DIR}"
+
+# Make sure all users can access it
+chmod -R a+rwx "$${VENV_DIR}"
+
+# Activate venv and install JupyterLab
+source "$${VENV_DIR}/bin/activate"
+pip install --upgrade pip
+pip install jupyterlab
+
+# Create a systemd service for JupyterLab (runs as ubuntu user)
+cat >/etc/systemd/system/jupyter@.service <<'EOF'
+[Unit]
+Description=JupyterLab for %i
+After=network.target
+
+[Service]
+Type=simple
+User=%i
+WorkingDirectory=/home/%i
+Environment="VENV_DIR=/opt/jupyterlab-venv"
+# leave token ON (default) for safety; binding to localhost anyway
+ExecStart=/opt/jupyterlab-venv/bin/jupyter lab --ip=127.0.0.1 --port=8080 --no-browser
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+EOF
+```
+After connecting, in the ssh terminal perform the following steps to startup the service for your oslogin user:
+```shell
+sudo systemctl enable jupyter@<your-linux-username>
+sudo systemctl start jupyter@<your-linux-username>
+```
+
+**Now, on localhost:8080 you should be able to perform the following in a JPL terminal:**
+
+1. Expose your tokens on the session
 ```shell
 export GIT_USERNAME='${GIT_USERNAME}'
 export GIT_TOKEN='${GIT_TOKEN}'
 export HUGGINGFACE_TOKEN='${HUGGINGFACE_TOKEN}'
 ```
-3. Use HTTPS to interact with git
+2. Use HTTPS to interact with git
 ```shell
 git clone https://$GIT_USERNAME:$GIT_TOKEN@github.com/bradlet/ai-research.git
 ```
+3. In a notebook cell, you can run `%pip install -r -requirements.txt` to get access to any required Python modules in the current session.
 
