@@ -32,7 +32,7 @@ uv remove <package>
 ```
 
 ### Notebooks via VSCode + jupytext
-Rather than committing `.ipynb` files (noisy diffs from cell outputs / metadata), this project uses [jupytext](https://jupytext.readthedocs.io/) to pair notebooks with plain-text representations (e.g. `.py` percent-format or `.md`) that are friendly to git review.
+Rather than committing `.ipynb` files (noisy diffs from cell outputs / metadata), this project uses python interactive cells (# %%). We can optionally use [jupytext](https://jupytext.readthedocs.io/) to pair notebooks with plain-text representations (e.g. `.py` percent-format or `.md`) that are friendly to git review.
 
 1. Make sure your `.venv` is selected as the Python interpreter in VSCode (`Cmd+Shift+P` → "Python: Select Interpreter" → `.venv`).
 2. Install the **Jupyter** extension (`ms-toolsai.jupyter`) — it natively opens jupytext-paired files as interactive notebooks.
