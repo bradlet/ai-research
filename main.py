@@ -4,7 +4,7 @@
 # %%
 import torch
 
-from lib import MemoryOffloader, SimpleWriter
+from lib import MemoryOffloader
 
 # %%
 assert torch.backends.mps.is_available(), "MPS backend is not available"

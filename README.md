@@ -31,6 +31,16 @@ uv add <package>
 uv remove <package>
 ```
 
+### Local secrets via `.env`
+Tokens and other secrets are loaded from a gitignored `.env` file at the repo root using [`python-dotenv`](https://pypi.org/project/python-dotenv/). A committed `.env.example` documents the expected keys.
+
+1. Copy the template:
+```shell
+cp .env.example .env
+```
+2. Edit `.env` and paste real values (e.g. `HUGGINGFACE_TOKEN=hf_...`).
+3. Scripts call `load_dotenv()` before reading `os.environ[...]`, so anything in `.env` is picked up automatically when the kernel/process starts.
+
 ### Notebooks via VSCode + jupytext
 Rather than committing `.ipynb` files (noisy diffs from cell outputs / metadata), this project uses python interactive cells (# %%). We can optionally use [jupytext](https://jupytext.readthedocs.io/) to pair notebooks with plain-text representations (e.g. `.py` percent-format or `.md`) that are friendly to git review.
 
@@ -115,4 +125,17 @@ export HUGGINGFACE_TOKEN='${HUGGINGFACE_TOKEN}'
 git clone https://$GIT_USERNAME:$GIT_TOKEN@github.com/bradlet/ai-research.git
 ```
 3. In a notebook cell, you can run `%pip install -r requirements.txt` to get access to any required Python modules in the current session.
+
+## Scripts
+
+### `images.py` — Stable Diffusion 3.5 Large on MPS
+Interactive jupytext script that loads `stabilityai/stable-diffusion-3.5-large` via 🤗 `diffusers`, runs inference on the MPS device, and saves a PNG to `out/{random}.png`.
+
+**One-time setup on Hugging Face:**
+1. Create an account at https://huggingface.co.
+2. Open the [SD 3.5 Large model page](https://huggingface.co/stabilityai/stable-diffusion-3.5-large) and click **"Agree and access repository"** to accept Stability's Community License (the model is gated — skipping this causes `GatedRepoError` on download).
+3. Generate a **Read** access token at https://huggingface.co/settings/tokens.
+4. Put it in your local `.env` as `HUGGINGFACE_TOKEN=hf_...` (see the "Local secrets via `.env`" section above).
+
+**Run it:** open `images.py` in VSCode with `.venv` selected and run cells top-to-bottom. First load downloads ~16GB of weights into `~/.cache/huggingface`. Generated images land in `out/` (gitignored). Edit the `PROMPT` constant to change the prompt; swap `MODEL_ID` to `stabilityai/stable-diffusion-3.5-medium` if SD 3.5 Large is too memory-hungry for your Mac.
 

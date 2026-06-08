@@ -11,10 +11,29 @@ resolution-markers = [
 ]
 
 [[package]]
+name = "accelerate"
+version = "1.13.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "huggingface-hub" },
+    { name = "numpy" },
+    { name = "packaging" },
+    { name = "psutil" },
+    { name = "pyyaml" },
+    { name = "safetensors" },
+    { name = "torch" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/ca/14/787e5498cd062640f0f3d92ef4ae4063174f76f9afd29d13fc52a319daae/accelerate-1.13.0.tar.gz", hash = "sha256:d631b4e0f5b3de4aff2d7e9e6857d164810dfc3237d54d017f075122d057b236", size = 402835, upload-time = "2026-03-04T19:34:12.359Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/7e/46/02ac5e262d4af18054b3e922b2baedbb2a03289ee792162de60a865defc5/accelerate-1.13.0-py3-none-any.whl", hash = "sha256:cf1a3efb96c18f7b152eb0fa7490f3710b19c3f395699358f08decca2b8b62e0", size = 383744, upload-time = "2026-03-04T19:34:10.313Z" },
+]
+
+[[package]]
 name = "ai-research"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "accelerate" },
     { name = "annotated-doc" },
     { name = "annotated-types" },
     { name = "anyio" },
@@ -30,6 +49,7 @@ dependencies = [
     { name = "cycler" },
     { name = "debugpy" },
     { name = "decorator" },
+    { name = "diffusers" },
     { name = "executing" },
     { name = "fastjsonschema" },
     { name = "filelock" },
@@ -88,6 +108,7 @@ dependencies = [
     { name = "pygments" },
     { name = "pyparsing" },
     { name = "python-dateutil" },
+    { name = "python-dotenv" },
     { name = "pytokens" },
     { name = "pyyaml" },
     { name = "pyzmq" },
@@ -122,6 +143,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
+    { name = "accelerate", specifier = ">=1.13.0" },
     { name = "annotated-doc", specifier = "==0.0.4" },
     { name = "annotated-types", specifier = "==0.7.0" },
     { name = "anyio", specifier = "==4.13.0" },
@@ -137,6 +159,7 @@ requires-dist = [
     { name = "cycler", specifier = "==0.12.1" },
     { name = "debugpy", specifier = "==1.8.20" },
     { name = "decorator", specifier = "==5.3.1" },
+    { name = "diffusers", specifier = ">=0.37.1" },
     { name = "executing", specifier = "==2.2.1" },
     { name = "fastjsonschema", specifier = "==2.21.2" },
     { name = "filelock", specifier = "==3.29.0" },
@@ -195,6 +218,7 @@ requires-dist = [
     { name = "pygments", specifier = "==2.20.0" },
     { name = "pyparsing", specifier = "==3.3.2" },
     { name = "python-dateutil", specifier = "==2.9.0.post0" },
+    { name = "python-dotenv", specifier = ">=1.2.2" },
     { name = "pytokens", specifier = "==0.4.1" },
     { name = "pyyaml", specifier = "==6.0.3" },
     { name = "pyzmq", specifier = "==27.1.0" },
@@ -658,6 +682,26 @@ wheels = [
 ]
 
 [[package]]
+name = "diffusers"
+version = "0.37.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "filelock" },
+    { name = "httpx" },
+    { name = "huggingface-hub" },
+    { name = "importlib-metadata" },
+    { name = "numpy" },
+    { name = "pillow" },
+    { name = "regex" },
+    { name = "requests" },
+    { name = "safetensors" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/46/5c/f4c2eb8d481fe8784a7e2331fbaab820079c06676185fa6d2177b386d590/diffusers-0.37.1.tar.gz", hash = "sha256:2346c21f77f835f273b7aacbaada1c34a596a3a2cc6ddc99d149efcd0ec298fa", size = 4135139, upload-time = "2026-03-25T08:04:04.515Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/9c/dd/51c38785ce5e1c287b5ad17ba550edaaaffce0deb0da4857019c6700fbaf/diffusers-0.37.1-py3-none-any.whl", hash = "sha256:0537c0b28cb53cf39d6195489bcf8f833986df556c10f5e28ab7427b86fc8b90", size = 5001536, upload-time = "2026-03-25T08:04:02.385Z" },
+]
+
+[[package]]
 name = "executing"
 version = "2.2.1"
 source = { registry = "https://pypi.org/simple" }
@@ -874,6 +918,18 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/82/77/7b3966d0b9d1d31a36ddf1746926a11dface89a83409bf1483f0237aa758/idna-3.15.tar.gz", hash = "sha256:ca962446ea538f7092a95e057da437618e886f4d349216d2b1e294abfdb65fdc", size = 199245, upload-time = "2026-05-12T22:45:57.011Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/d2/23/408243171aa9aaba178d3e2559159c24c1171a641aa83b67bdd3394ead8e/idna-3.15-py3-none-any.whl", hash = "sha256:048adeaf8c2d788c40fee287673ccaa74c24ffd8dcf09ffa555a2fbb59f10ac8", size = 72340, upload-time = "2026-05-12T22:45:55.733Z" },
+]
+
+[[package]]
+name = "importlib-metadata"
+version = "9.0.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "zipp" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/a9/01/15bb152d77b21318514a96f43af312635eb2500c96b55398d020c93d86ea/importlib_metadata-9.0.0.tar.gz", hash = "sha256:a4f57ab599e6a2e3016d7595cfd72eb4661a5106e787a95bcc90c7105b831efc", size = 56405, upload-time = "2026-03-20T06:42:56.999Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/38/3d/2d244233ac4f76e38533cfcb2991c9eb4c7bf688ae0a036d30725b8faafe/importlib_metadata-9.0.0-py3-none-any.whl", hash = "sha256:2d21d1cc5a017bd0559e36150c21c830ab1dc304dedd1b7ea85d20f45ef3edd7", size = 27789, upload-time = "2026-03-20T06:42:55.665Z" },
 ]
 
 [[package]]
@@ -1941,6 +1997,15 @@ wheels = [
 ]
 
 [[package]]
+name = "python-dotenv"
+version = "1.2.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/82/ed/0301aeeac3e5353ef3d94b6ec08bbcabd04a72018415dcb29e588514bba8/python_dotenv-1.2.2.tar.gz", hash = "sha256:2c371a91fbd7ba082c2c1dc1f8bf89ca22564a087c2c287cd9b662adde799cf3", size = 50135, upload-time = "2026-03-01T16:00:26.196Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/0b/d7/1959b9648791274998a9c3526f6d0ec8fd2233e4d4acce81bbae76b44b2a/python_dotenv-1.2.2-py3-none-any.whl", hash = "sha256:1d8214789a24de455a8b8bd8ae6fe3c6b69a5e3d64aa8a8e5d68e694bbcb285a", size = 22101, upload-time = "2026-03-01T16:00:25.09Z" },
+]
+
+[[package]]
 name = "pytokens"
 version = "0.4.1"
 source = { registry = "https://pypi.org/simple" }
@@ -2630,4 +2695,13 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/2c/ee/afaf0f85a9a18fe47a67f1e4422ed6cf1fe642f0ae0a2f81166231303c52/wcwidth-0.7.0.tar.gz", hash = "sha256:90e3a7ea092341c44b99562e75d09e4d5160fe7a3974c6fb842a101a95e7eed0", size = 182132, upload-time = "2026-05-02T16:04:12.653Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/41/52/e465037f5375f43533d1a80b6923955201596a99142ed524d77b571a1418/wcwidth-0.7.0-py3-none-any.whl", hash = "sha256:5d69154c429a82910e241c738cd0e2976fac8a2dd47a1a805f4afed1c0f136f2", size = 110825, upload-time = "2026-05-02T16:04:11.033Z" },
+]
+
+[[package]]
+name = "zipp"
+version = "4.1.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/b9/d8/eab98a517c14134c0b2eb4e2387bc5f457334293ec5d2dd3857ec2966802/zipp-4.1.0.tar.gz", hash = "sha256:4cb57381f544315db7688e976e922a2b18cdb513d21cc194eb42232ba2a3e602", size = 26214, upload-time = "2026-05-18T20:08:57.967Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/3a/13/547360d81e6d88d58492968ffda9f9542854f11310ee556fef14260cc886/zipp-4.1.0-py3-none-any.whl", hash = "sha256:25ad4e16390cd314347dd8f1de67a2ac538ae658ed4ab9db16029c07c188e97f", size = 10238, upload-time = "2026-05-18T20:08:57.045Z" },
 ]
