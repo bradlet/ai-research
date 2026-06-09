@@ -36,8 +36,9 @@ from diffusers import StableDiffusion3Pipeline
 from dotenv import load_dotenv
 from huggingface_hub import login
 
+# https://huggingface.co/stabilityai/stable-diffusion-3.5-large
 MODEL_ID = "stabilityai/stable-diffusion-3.5-large"
-PROMPT = "A capybara wearing a tiny hat, photorealistic, soft lighting"
+PROMPT = "A giant monster which looks like a flying ant with scorpion arms and a scorpion tail. The monster's face is dominating by menacing pincers and spines."
 OUT_DIR = Path(__file__).parent / "out"
 NUM_INFERENCE_STEPS = 28
 GUIDANCE_SCALE = 3.5
