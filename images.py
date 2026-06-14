@@ -35,11 +35,12 @@ import torch
 from diffusers import StableDiffusion3Pipeline
 from dotenv import load_dotenv
 from huggingface_hub import login
+from typing import List, Tuple
 
 # https://huggingface.co/stabilityai/stable-diffusion-3.5-medium
 MODEL_ID = "stabilityai/stable-diffusion-3.5-medium"
-PROMPTS = [
-  "Epic dark-fantasy key-art banner, ultra-wide cinematic composition. Two colossal champions face off across a storm-torn battlefield at the moment before impact, mirrored on the left and right edges. Left: a radiant god of light, armored in gold and dawn-fire, immense and serene, a halo of solar flame behind him. Right: a towering avatar of decay — a massive winged scorpion-like entity with a pincer-dominated face, black-violet carapace, dripping motes of entropic ash. Below, rivers of tiny kneeling mortal followers stream toward each champion, glowing gold on one side, sickly green on the other. The sky is split by a luminous thread-like loom of fate; floating runic glyphs crack the world's rules. Mythic and monumental, dramatic rim lighting, volumetric god-rays piercing storm clouds, painterly concept art, 8k. Palette: molten gold and amber vs decay-violet and entropy-green over storm-grey. Avoid: text, logos, UI, card frames, watermark, modern objects, cartoonish, flat.",
+PROMPTS: List[Tuple[str, str]] = [
+  ["banner.png", "Epic dark-fantasy key-art banner, ultra-wide cinematic composition. Two colossal champions face off across a storm-torn battlefield at the moment before impact, mirrored on the left and right edges. Left: a radiant god of light, armored in gold and dawn-fire, immense and serene, a halo of solar flame behind him. Right: a towering avatar of decay — a massive winged scorpion-like entity with a pincer-dominated face, black-violet carapace, dripping motes of entropic ash. Below, rivers of tiny kneeling mortal followers stream toward each champion, glowing gold on one side, sickly green on the other. The sky is split by a luminous thread-like loom of fate; floating runic glyphs crack the world's rules. Mythic and monumental, dramatic rim lighting, volumetric god-rays piercing storm clouds, painterly concept art, 8k. Palette: molten gold and amber vs decay-violet and entropy-green over storm-grey. Avoid: text, logos, UI, card frames, watermark, modern objects, cartoonish, flat."],
 ]
 
 OUT_DIR = Path(__file__).parent / "out"
@@ -81,13 +82,13 @@ pipe.enable_attention_slicing()
 
 # %%
 OUT_DIR.mkdir(exist_ok=True)
-for i, prompt in enumerate(PROMPTS):
+for i, [filename, prompt] in enumerate(PROMPTS):
   print(f"[{i + 1}/{len(PROMPTS)}] generating: {prompt[:60]}...")
   image = pipe(
     prompt,
     num_inference_steps=NUM_INFERENCE_STEPS,
     guidance_scale=GUIDANCE_SCALE,
   ).images[0]
-  out_path = OUT_DIR / f"{secrets.token_hex(8)}.png"
+  out_path = OUT_DIR / filename  # f"{secrets.token_hex(8)}.png"
   image.save(out_path)
   print(f"  saved: {out_path}")
